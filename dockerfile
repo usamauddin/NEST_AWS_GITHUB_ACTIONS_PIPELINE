@@ -1,13 +1,20 @@
-
-# Start with a ready-made system that already has Node.js installed." This is your base image.
+# 1. Base image: provides Node.js and npm
 FROM node:latest
-# Create a folder called /app inside the image and work from there." Every step after this happens inside that folder.
+
+# 2. Set working directory inside the container
 WORKDIR /app
-# Copy everything from my project folder (first .) into the current folder in the image (second ., which is /app
+
+# 3. Copy project files into /app
 COPY . .
-# Install dependencies
+
+# 4. Install dependencies
 RUN npm install
-# Expose a port
+
+# Build application
+RUN npm run build
+
+# 5. Document the port your application uses
 EXPOSE 3000
-# Define the command to run your application
-CMD ["npm", "run", "start:dev"]
+
+# 6. Start the NestJS application
+CMD ["npm", "run", "start:prod"]
